@@ -1,5 +1,5 @@
 {
-  "name": "index",
+  "name": "@index",
   "private": true,
   "scripts": {
     "build": "turbo run build",
