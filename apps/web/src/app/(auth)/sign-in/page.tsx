@@ -23,6 +23,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { cn } from "@index/ui/lib/utils";
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -38,6 +40,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function SignInPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
 
   const router = useRouter();
@@ -199,14 +202,52 @@ export default function SignInPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Password"
-                        type="password"
-                        disabled={form.formState.isSubmitting}
-                        {...field}
-                      />
-                    </FormControl>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          placeholder="Password"
+                          type={showPassword ? "text" : "password"}
+                          disabled={form.formState.isSubmitting}
+                          {...field}
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        variant={showPassword ? "outline" : "ghost"}
+                        size="icon"
+                        className={cn(
+                          "absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 rounded-sm",
+                          showPassword ? "" : "text-muted-foreground"
+                        )}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        <AnimatePresence mode="wait">
+                          {showPassword ? (
+                            <motion.div
+                              key="eye-off"
+                              initial={{ opacity: 0, filter: "blur(10px)" }}
+                              animate={{ opacity: 1, filter: "blur(0px)" }}
+                              transition={{
+                                ease: [0.16, 1, 0.3, 1],
+                              }}
+                            >
+                              <EyeOffIcon className="w-4 h-4" />
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="eye"
+                              initial={{ opacity: 0, filter: "blur(10px)" }}
+                              animate={{ opacity: 1, filter: "blur(0px)" }}
+                              transition={{
+                                ease: [0.16, 1, 0.3, 1],
+                              }}
+                            >
+                              <EyeIcon className="w-4 h-4" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
