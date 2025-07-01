@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-screen-xl p-4 flex items-center justify-between">
         <Link
           href="/"
-          className="font-medium tracking-tighter font-serif text-2xl hover:opacity-80 transition-opacity flex items-center gap-4"
+          className="font-medium tracking-tighter font-serif text-2xl hover:opacity-80 transition-opacity flex items-center gap-2.5"
         >
           <Image
             src="/logo.svg"

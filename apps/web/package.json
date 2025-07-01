@@ -16,6 +16,7 @@
     "@index/db": "workspace:*",
     "@index/ui": "workspace:*",
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.10.1",
+    "better-auth": "^1.2.12",
     "framer-motion": "^12.20.1",
     "lucide-react": "^0.475.0",
     "next": "^15.2.3",
@@ -30,6 +31,7 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@index/auth": "workspace:*",
     "@index/db": "workspace:*",
     "@index/eslint-config": "workspace:^",
     "@index/typescript-config": "workspace:*",
