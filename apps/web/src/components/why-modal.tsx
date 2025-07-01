@@ -33,7 +33,10 @@ export default function WhyModal() {
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, filter: "blur(10px)" }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            transition={{
+              duration: 0.5,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="fixed inset-0 z-[100] bg-black/50 flex items-center justify-center backdrop-blur-sm"
             onClick={() => setOpen(false)}
           >
@@ -42,7 +45,10 @@ export default function WhyModal() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              transition={{
+                duration: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="relative"
               onClick={(e) => e.stopPropagation()}
             >
@@ -50,8 +56,11 @@ export default function WhyModal() {
                 initial={{ filter: "blur(20px)" }}
                 animate={{ filter: "blur(0px)" }}
                 exit={{ filter: "blur(20px)" }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="bg-background/75 backdrop-blur-lg rounded-2xl p-5 w-full max-w-lg border"
+                transition={{
+                  duration: 0.5,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="bg-background/75 backdrop-blur-lg rounded-md p-5 w-full max-w-lg border"
               >
                 <Button
                   variant="ghost"
