@@ -5,12 +5,15 @@ import { Button } from "@index/ui/components/button";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <div className="max-w-screen-xl mx-auto p-4">
       <div className="fixed inset-0 -z-10">
@@ -53,11 +56,13 @@ export default function AuthLayout({
       >
         {children}
       </motion.div>
-      <footer className="text-center text-xs text-muted-foreground mt-4 max-w-sm mx-auto fixed bottom-4 left-1/2 -translate-x-1/2">
-        By continuing, you agree to our{" "}
-        <Link href="/terms">Terms of Service</Link> and{" "}
-        <Link href="/privacy">Privacy Policy</Link>.
-      </footer>
+      {!pathname.includes("error") && (
+        <footer className="text-center text-xs text-muted-foreground mt-4 max-w-sm mx-auto fixed bottom-4 left-1/2 -translate-x-1/2">
+          By continuing, you agree to our{" "}
+          <Link href="/terms">Terms of Service</Link> and{" "}
+          <Link href="/privacy">Privacy Policy</Link>.
+        </footer>
+      )}
     </div>
   );
 }
