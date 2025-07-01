@@ -16,7 +16,7 @@ import {
 } from "@index/ui/components/form";
 import { Link } from "@/components/link";
 import Image from "next/image";
-import { signIn, signUp } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -36,7 +36,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function SignUpPage() {
+export default function SignInPage() {
   const [githubLoading, setGithubLoading] = useState(false);
 
   const form = useForm<FormValues>({
@@ -50,10 +50,10 @@ export default function SignUpPage() {
 
   async function onSubmit(data: FormValues) {
     try {
-      await signUp.email({
-        name: "",
+      await signIn.email({
         email: data.email,
         password: data.password,
+        callbackURL: "/notes",
       });
 
       toast.success("Account created successfully!");
@@ -61,14 +61,6 @@ export default function SignUpPage() {
       toast.error("Failed to create account");
     }
   }
-
-  useEffect(() => {
-    if (githubLoading) {
-      setTimeout(() => {
-        setGithubLoading(false);
-      }, 1000);
-    }
-  }, [githubLoading]);
 
   return (
     <div className="space-y-8">
@@ -84,10 +76,10 @@ export default function SignUpPage() {
         </div>
         <div className="space-y-1">
           <h1 className="text-4xl tracking-tight font-medium text-center">
-            Welcome to <span className="font-serif">index</span>
+            Welcome back
           </h1>
           <p className="text-muted-foreground text-center">
-            Get started with the private, intelligent note-taking platform
+            Let&apos;s get you back in your account
           </p>
         </div>
       </div>
@@ -220,18 +212,18 @@ export default function SignUpPage() {
                     <span>Creating account...</span>
                   </>
                 ) : (
-                  "Sign Up"
+                  "Sign In"
                 )}
               </Button>
             </form>
           </Form>
           <p className="text-center text-xs text-muted-foreground">
-            Already have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
-              href="/sign-in"
+              href="/sign-up"
               className="underline underline-offset-4 hover:text-foreground transition-colors"
             >
-              Sign in
+              Sign up
             </Link>
           </p>
         </div>
