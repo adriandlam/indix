@@ -1,8 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="fixed bottom-0 left-0 w-full border-t border-dashed z-10 bg-background/25">
+    <motion.footer
+      initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{
+        delay: 1.75,
+        duration: 1,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="fixed bottom-0 left-0 w-full border-t border-dashed z-10 bg-background/25"
+    >
       <div className="mx-auto max-w-screen-xl p-4">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-sm text-muted-foreground text-center sm:text-left">
           <p>
@@ -24,6 +36,6 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
