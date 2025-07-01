@@ -28,7 +28,11 @@ export default function Navbar() {
             className="data-[orientation=vertical]:h-4 ml-4"
           />
           <Button asChild size="icon" variant="ghost">
-            <Link href="https://github.com/adriandlam/index">
+            <Link
+              href="https://github.com/adriandlam/index"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <svg
                 role="img"
                 fill="currentColor"

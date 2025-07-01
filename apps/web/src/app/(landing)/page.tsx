@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import TextGenerateEffect from "@/components/text-generate-effect";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@index/ui/components/button";
@@ -11,13 +12,14 @@ import {
   FormItem,
 } from "@index/ui/components/form";
 import { Input } from "@index/ui/components/input";
-import { Loader } from "@index/ui/components/loader";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { joinWaitlist } from "./actions";
+import { useHotkeys } from "react-hotkeys-hook";
+import { Loader } from "@index/ui/components/loader";
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -26,24 +28,73 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function Home() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isValidating, setIsValidating] = useState(false);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
     },
+    mode: "onChange",
   });
 
-  async function onSubmit(data: FormValues) {
-    try {
-      const result = await joinWaitlist({ email: data.email });
-      if (result.success) {
-        toast.success(result.message);
-      } else {
-        toast.error(result.error);
-      }
-    } catch (error) {
-      console.error(error);
+  const emailValue = form.watch("email");
+
+  // Debounced validation state
+  useEffect(() => {
+    if (!emailValue) {
+      setIsValidating(false);
+      return;
     }
+
+    setIsValidating(true);
+    const timer = setTimeout(() => {
+      setIsValidating(false);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [emailValue]);
+
+  useHotkeys(
+    "slash",
+    () => {
+      inputRef.current?.focus();
+    },
+    {
+      enabled: true,
+      preventDefault: true,
+    }
+  );
+
+  useHotkeys(
+    "esc",
+    () => {
+      inputRef.current?.blur();
+    },
+    {
+      enableOnFormTags: true,
+    }
+  );
+
+  useHotkeys(
+    "enter",
+    () => {
+      form.handleSubmit(onSubmit)();
+    },
+    {
+      enableOnFormTags: true,
+      preventDefault: true,
+    }
+  );
+
+  async function onSubmit(data: FormValues) {
+    const promise = joinWaitlist({ email: data.email });
+    toast.promise(promise, {
+      loading: "Joining...",
+      success: (data) => data.message,
+      error: (error) => error.message,
+    });
   }
 
   return (
@@ -78,7 +129,7 @@ export default function Home() {
             </motion.div>
             <TextGenerateEffect
               text="Write your thoughts, keep your privacy"
-              className="text-4xl md:text-6xl tracking-tight font-serif font-medium text-center max-w-[40vw] mx-auto"
+              className="text-4xl md:text-6xl tracking-tight font-serif font-medium text-center lg:max-w-[40vw] mx-auto"
             />
           </div>
           <motion.p
@@ -116,21 +167,41 @@ export default function Home() {
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormControl>
-                      <Input
-                        disabled={form.formState.isSubmitting}
-                        placeholder="me@example.com"
-                        required
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          disabled={form.formState.isSubmitting}
+                          placeholder="Press / to focus"
+                          required
+                          {...field}
+                          ref={(e) => {
+                            field.ref(e);
+                            inputRef.current = e;
+                          }}
+                        />
+                        {isValidating &&
+                          emailValue &&
+                          !form.formState.isSubmitting && (
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center">
+                              <Loader />
+                            </div>
+                          )}
+                      </div>
                     </FormControl>
-                    <FormDescription className="text-xs md:inline hidden">
+                    <FormDescription className="text-xs md:inline hidden ml-2">
                       I&apos;ll notify you when we&apos;re ready to launch
                     </FormDescription>
                   </FormItem>
                 )}
               />
               <Button type="submit" disabled={form.formState.isSubmitting}>
-                Join the waitlist <Loader variant="secondary" />
+                {form.formState.isSubmitting ? (
+                  <>
+                    <Loader variant="secondary" />
+                    <span>Joining...</span>
+                  </>
+                ) : (
+                  <span>Join the waitlist</span>
+                )}
               </Button>
             </form>
           </Form>

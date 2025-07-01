@@ -28,22 +28,23 @@ export default function WhyModal() {
       </Button>
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-[100]">
-            <motion.div
-              key="overlay"
-              initial={{ opacity: 0, filter: "blur(10px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, filter: "blur(10px)" }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="bg-black/75 absolute inset-0"
-            />
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] bg-black/50 flex items-center justify-center backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          >
             <motion.div
               key="modal"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute inset-0 flex items-center justify-center"
+              className="relative"
+              onClick={(e) => e.stopPropagation()}
             >
               <motion.div
                 initial={{ filter: "blur(20px)" }}
@@ -81,7 +82,7 @@ export default function WhyModal() {
                 </div>
               </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

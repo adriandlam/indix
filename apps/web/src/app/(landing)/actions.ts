@@ -12,9 +12,7 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
   const parsedData = waitlistSchema.safeParse(data);
 
   if (!parsedData.success) {
-    return {
-      error: "Please enter a valid email address",
-    };
+    throw new Error("Please enter a valid email address");
   }
 
   const { email } = parsedData.data;
@@ -27,7 +25,6 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
 
     if (existingEntry) {
       return {
-        success: true,
         message:
           "Thanks! You're already on our waitlist. We'll be in touch soon!",
       };
@@ -54,7 +51,6 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
     }
 
     return {
-      success: true,
       message: "Thanks for joining! We'll notify you when Index is ready.",
     };
   } catch (error) {
@@ -62,9 +58,7 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
       "Waitlist signup error:",
       error instanceof Error ? error.message : error
     );
-    return {
-      error: "Something went wrong. Please try again.",
-    };
+    throw new Error("Something went wrong. Please try again.");
   }
 
   // TODO: add email template, verify email in resend
