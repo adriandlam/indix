@@ -2,10 +2,11 @@ import { Button } from "@index/ui/components/button";
 import { Separator } from "@index/ui/components/separator";
 import Link from "next/link";
 import Image from "next/image";
+import WhyModal from "./why-modal";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 w-full border-b border-dashed">
+    <nav className="fixed top-0 left-0 w-full border-b border-dashed z-40">
       <div className="mx-auto max-w-screen-xl p-4 flex items-center justify-between">
         <Link
           href="/"
@@ -21,14 +22,7 @@ export default function Navbar() {
           <span>index</span>
         </Link>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-6">
-            <Link
-              href="/why"
-              className="opacity-50 hover:opacity-100 transition-opacity text-sm font-medium"
-            >
-              Why?
-            </Link>
-          </div>
+          <WhyModal />
           <Separator
             orientation="vertical"
             className="data-[orientation=vertical]:h-4 ml-4"

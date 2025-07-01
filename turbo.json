@@ -2,7 +2,8 @@
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "globalEnv": [
-    "NODE_ENV"
+    "NODE_ENV",
+    "DATABASE_URL"
   ],
   "globalDependencies": [
     ".env*",
@@ -12,7 +13,8 @@
   "tasks": {
     "build": {
       "dependsOn": [
-        "^build"
+        "^build",
+        "^db:generate"
       ],
       "env": [
         "NODE_ENV",
@@ -34,14 +36,32 @@
         "^lint"
       ]
     },
+    "lint:fix": {
+      "dependsOn": [
+        "^lint:fix"
+      ]
+    },
     "check-types": {
       "dependsOn": [
         "^check-types"
       ]
     },
     "dev": {
+      "dependsOn": [
+        "^db:generate"
+      ],
       "cache": false,
       "persistent": true
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:deploy": {
+      "cache": false
     }
   }
 }

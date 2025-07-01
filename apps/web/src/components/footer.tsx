@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="fixed bottom-0 left-0 w-full border-t border-dashed">
+    <footer className="fixed bottom-0 left-0 w-full border-t border-dashed z-10 bg-background/25">
       <div className="mx-auto max-w-screen-xl p-4">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-sm text-muted-foreground text-center sm:text-left">
           <p>
@@ -14,10 +14,6 @@ export default function Footer() {
             >
               Adrian
             </Link>
-            {" • "}
-            <span className="text-orange-500 animate-pulse">
-              In Development
-            </span>
           </p>
           <ul className="flex items-center gap-2 justify-center sm:justify-start">
             <li>Privacy First</li>

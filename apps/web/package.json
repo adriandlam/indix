@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@index/db": "workspace:*",
     "@index/ui": "workspace:*",
     "framer-motion": "^12.20.1",
     "lucide-react": "^0.475.0",
@@ -27,11 +28,13 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@index/db": "workspace:*",
     "@index/eslint-config": "workspace:^",
     "@index/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "react-hotkeys-hook": "^5.1.0",
     "typescript": "5.8.2"
   }
 }

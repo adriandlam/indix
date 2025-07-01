@@ -25,7 +25,7 @@ export default function RootLayout({
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
       >
         <Providers>{children}</Providers>
-        <Toaster />
+        <Toaster richColors />
       </body>
     </html>
   );

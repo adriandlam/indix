@@ -1,14 +1,8 @@
 "use client";
 
-import { toast } from "sonner";
-import { joinWaitlist } from "./actions";
-import React from "react";
 import TextGenerateEffect from "@/components/text-generate-effect";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Input } from "@index/ui/components/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@index/ui/components/button";
-import { CornerDownLeft } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -16,9 +10,14 @@ import {
   FormField,
   FormItem,
 } from "@index/ui/components/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@index/ui/components/input";
+import { Loader } from "@index/ui/components/loader";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { joinWaitlist } from "./actions";
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -36,8 +35,12 @@ export default function Home() {
 
   async function onSubmit(data: FormValues) {
     try {
-      toast.success("Thank you for joining the waitlist!");
-      // joinWaitlist(data.email);
+      const result = await joinWaitlist({ email: data.email });
+      if (result.success) {
+        toast.success(result.message);
+      } else {
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -58,19 +61,33 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
       </div>
-      <div className="max-w-screen-md mx-auto px-4 space-y-8 py-32 md:py-60">
+      <div className="max-w-screen-md mx-auto px-4 space-y-8 py-32 md:py-60 z-0">
         <div className="space-y-4">
-          <TextGenerateEffect
-            text="Write your thoughts, keep your privacy"
-            className="text-4xl md:text-6xl tracking-tight font-serif font-medium text-center max-w-[40vw] mx-auto"
-          />
+          <div className="space-y-1">
+            <motion.div
+              initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                delay: 1.5,
+                duration: 1.2,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="shadow-inner font-mono border bg-orange-500/25 border-orange-800 text-xs text-orange-500 mx-auto text-center max-w-fit px-2.5 py-0.5 rounded-full"
+            >
+              In Development
+            </motion.div>
+            <TextGenerateEffect
+              text="Write your thoughts, keep your privacy"
+              className="text-4xl md:text-6xl tracking-tight font-serif font-medium text-center max-w-[40vw] mx-auto"
+            />
+          </div>
           <motion.p
             className="text-lg text-center max-w-lg mx-auto"
             initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
             animate={{ opacity: 0.75, y: 0, filter: "blur(0px)" }}
             transition={{
-              delay: 0.7,
-              duration: 1.2,
+              delay: 0.75,
+              duration: 1.5,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
@@ -83,8 +100,8 @@ export default function Home() {
           initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{
-            delay: 0.9,
-            duration: 1.2,
+            delay: 1,
+            duration: 2.25,
             ease: [0.16, 1, 0.3, 1],
           }}
         >
@@ -99,7 +116,12 @@ export default function Home() {
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormControl>
-                      <Input placeholder="me@example.com" required {...field} />
+                      <Input
+                        disabled={form.formState.isSubmitting}
+                        placeholder="me@example.com"
+                        required
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription className="text-xs md:inline hidden">
                       I&apos;ll notify you when we&apos;re ready to launch
@@ -107,20 +129,8 @@ export default function Home() {
                   </FormItem>
                 )}
               />
-              <Button
-                className="flex items-center gap-3"
-                type="submit"
-                disabled={form.formState.isSubmitting}
-              >
-                Join the waitlist{" "}
-                <div className="hidden md:flex items-center gap-1">
-                  <kbd className="text-sm border rounded-sm bg-muted text-muted-foreground w-6 h-6 flex items-center justify-center">
-                    ⌘
-                  </kbd>
-                  <kbd className="text-sm border rounded-sm bg-muted text-muted-foreground w-6 h-6 flex items-center justify-center">
-                    <CornerDownLeft className="w-4 h-4" />
-                  </kbd>
-                </div>
+              <Button type="submit" disabled={form.formState.isSubmitting}>
+                Join the waitlist <Loader variant="secondary" />
               </Button>
             </form>
           </Form>
