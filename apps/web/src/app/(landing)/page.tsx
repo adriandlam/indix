@@ -112,7 +112,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
       </div>
-      <div className="max-w-screen-md mx-auto px-4 space-y-8 py-32 md:py-60 z-0">
+      <div className="max-w-screen-md mx-auto px-4 space-y-8 my-32 md:my-60 z-0">
         <div className="space-y-4">
           <div className="space-y-1">
             <motion.div
