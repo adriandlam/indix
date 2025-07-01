@@ -75,9 +75,6 @@ importers:
         specifier: ^3.25.67
         version: 3.25.67
     devDependencies:
-      '@index/auth':
-        specifier: workspace:*
-        version: link:../../packages/auth
       '@index/eslint-config':
         specifier: workspace:^
         version: link:../../packages/eslint-config
@@ -99,19 +96,6 @@ importers:
       typescript:
         specifier: 5.8.2
         version: 5.8.2
-
-  packages/auth:
-    dependencies:
-      '@index/db':
-        specifier: workspace:*
-        version: link:../db
-      better-auth:
-        specifier: ^1.2.12
-        version: 1.2.12
-    devDependencies:
-      '@types/node':
-        specifier: ^20.17.19
-        version: 20.17.19
 
   packages/db:
     dependencies:
