@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@index/ui/components/button";
 import { Input } from "@index/ui/components/input";
@@ -39,6 +40,8 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SignUpPage() {
   const [githubLoading, setGithubLoading] = useState(false);
 
+  const router = useRouter();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,26 +52,23 @@ export default function SignUpPage() {
   });
 
   async function onSubmit(data: FormValues) {
-    try {
-      await signUp.email({
+    await signUp.email(
+      {
         name: "",
         email: data.email,
         password: data.password,
-      });
-
-      toast.success("Account created successfully!");
-    } catch (error) {
-      toast.error("Failed to create account");
-    }
+      },
+      {
+        onSuccess: () => {
+          toast.success("Account created successfully!");
+          router.push("/verify?email=" + data.email);
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      }
+    );
   }
-
-  useEffect(() => {
-    if (githubLoading) {
-      setTimeout(() => {
-        setGithubLoading(false);
-      }, 1000);
-    }
-  }, [githubLoading]);
 
   return (
     <div className="space-y-8">
@@ -96,6 +96,7 @@ export default function SignUpPage() {
           <Button
             variant="outline"
             className="w-full"
+            disabled={form.formState.isSubmitting || githubLoading}
             onClick={() => {
               setGithubLoading(true);
               signIn.social({
@@ -175,6 +176,7 @@ export default function SignUpPage() {
               className="space-y-4.5"
             >
               <FormField
+                disabled={form.formState.isSubmitting || githubLoading}
                 control={form.control}
                 name="email"
                 render={({ field }) => (
@@ -192,6 +194,7 @@ export default function SignUpPage() {
                 )}
               />
               <FormField
+                disabled={form.formState.isSubmitting || githubLoading}
                 control={form.control}
                 name="password"
                 render={({ field }) => (
@@ -212,7 +215,7 @@ export default function SignUpPage() {
               <Button
                 type="submit"
                 className="w-full"
-                disabled={form.formState.isSubmitting}
+                disabled={form.formState.isSubmitting || githubLoading}
               >
                 {form.formState.isSubmitting ? (
                   <>
