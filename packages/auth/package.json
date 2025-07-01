@@ -1,0 +1,16 @@
+{
+  "name": "@index/auth",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^20"
+  },
+  "dependencies": {
+    "better-auth": "^1.2.12"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
