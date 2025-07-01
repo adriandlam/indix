@@ -31,6 +31,7 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@index/auth": "workspace:*",
     "@index/db": "workspace:*",
     "@index/eslint-config": "workspace:^",
     "@index/typescript-config": "workspace:*",
