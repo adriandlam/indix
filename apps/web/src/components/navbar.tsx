@@ -19,7 +19,7 @@ export default function Navbar() {
             height={32}
             className="w-9 h-9 rounded-lg border border-border/75"
           />
-          <span>index</span>
+          <span>indix</span>
         </Link>
         <div className="flex items-center gap-2">
           <WhyModal />
