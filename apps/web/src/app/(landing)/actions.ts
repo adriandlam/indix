@@ -8,6 +8,16 @@ const waitlistSchema = z.object({
   email: z.string().email().min(1),
 });
 
+function getWelcomeEmailTemplate() {
+  return `
+<h1>Welcome to Indix</h1>
+<p>Thanks for joining the waitlist!</p>
+<p>Indix is a native Markdown note-taking app that's private, secure, and local-first.</p>
+<p>I'll notify you as soon as it's ready to use.</p>
+<p>P.S. If you'd like to help out, it's open source and you can find the code on <a href="https://github.com/adriandlam/indix">GitHub</a>.</p>
+<p>- Adrian</p>`;
+}
+
 export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
   const parsedData = waitlistSchema.safeParse(data);
 
@@ -43,6 +53,12 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
         email: email,
         audienceId: "c30f8266-b200-4c19-97d5-a7bd1e1d256d",
       });
+      await resend.emails.send({
+        from: "Adrian <adrian@indix.app>",
+        to: [email],
+        subject: "Welcome to Indix",
+        html: getWelcomeEmailTemplate(),
+      });
     } catch (resendError) {
       console.error(
         "Failed to add to Resend:",
@@ -51,7 +67,7 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
     }
 
     return {
-      message: "Thanks for joining! We'll notify you when indix is ready.",
+      message: "Thanks for joining! We'll notify you when Indix is ready.",
     };
   } catch (error) {
     console.error(
