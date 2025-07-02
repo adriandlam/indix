@@ -17,7 +17,7 @@ import {
 } from "@indix/ui/components/form";
 import { Link } from "@/components/link";
 import Image from "next/image";
-import { signIn, signUp } from "@/lib/auth-client";
+import { authClient, signIn, signUp } from "@/lib/auth-client";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
