@@ -67,6 +67,7 @@ export default function SignUpPage() {
           router.push("/verify?email=" + data.email);
         },
         onError: (ctx) => {
+          console.log(ctx);
           toast.error(ctx.error.message);
         },
       }
@@ -179,7 +180,6 @@ export default function SignUpPage() {
               className="space-y-4.5"
             >
               <FormField
-                disabled={form.formState.isSubmitting || githubLoading}
                 control={form.control}
                 name="email"
                 render={({ field }) => (
@@ -188,7 +188,7 @@ export default function SignUpPage() {
                     <FormControl>
                       <Input
                         placeholder="me@example.com"
-                        disabled={form.formState.isSubmitting}
+                        disabled={form.formState.isSubmitting || githubLoading}
                         {...field}
                       />
                     </FormControl>
@@ -197,7 +197,6 @@ export default function SignUpPage() {
                 )}
               />
               <FormField
-                disabled={form.formState.isSubmitting || githubLoading}
                 control={form.control}
                 name="password"
                 render={({ field }) => (
@@ -208,7 +207,9 @@ export default function SignUpPage() {
                         <Input
                           placeholder="Password"
                           type={showPassword ? "text" : "password"}
-                          disabled={form.formState.isSubmitting}
+                          disabled={
+                            form.formState.isSubmitting || githubLoading
+                          }
                           {...field}
                         />
                       </FormControl>

@@ -178,7 +178,6 @@ export default function SignInPage() {
               className="space-y-4.5"
             >
               <FormField
-                disabled={form.formState.isSubmitting || githubLoading}
                 control={form.control}
                 name="email"
                 render={({ field }) => (
@@ -187,7 +186,7 @@ export default function SignInPage() {
                     <FormControl>
                       <Input
                         placeholder="me@example.com"
-                        disabled={form.formState.isSubmitting}
+                        disabled={form.formState.isSubmitting || githubLoading}
                         {...field}
                       />
                     </FormControl>
@@ -196,7 +195,6 @@ export default function SignInPage() {
                 )}
               />
               <FormField
-                disabled={form.formState.isSubmitting || githubLoading}
                 control={form.control}
                 name="password"
                 render={({ field }) => (
@@ -207,7 +205,9 @@ export default function SignInPage() {
                         <Input
                           placeholder="Password"
                           type={showPassword ? "text" : "password"}
-                          disabled={form.formState.isSubmitting}
+                          disabled={
+                            form.formState.isSubmitting || githubLoading
+                          }
                           {...field}
                         />
                       </FormControl>
