@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@index/db/*": ["./src/*"]
+      "@indix/db/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

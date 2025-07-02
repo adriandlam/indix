@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "@index/ui/components/button";
-import { Input } from "@index/ui/components/input";
-import { Label } from "@index/ui/components/label";
-import { Loader } from "@index/ui/components/loader";
-import { Separator } from "@index/ui/components/separator";
+import { Button } from "@indix/ui/components/button";
+import { Input } from "@indix/ui/components/input";
+import { Label } from "@indix/ui/components/label";
+import { Loader } from "@indix/ui/components/loader";
+import { Separator } from "@indix/ui/components/separator";
 import {
   Form,
   FormControl,
@@ -14,7 +14,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@index/ui/components/form";
+} from "@indix/ui/components/form";
 import { Link } from "@/components/link";
 import Image from "next/image";
 import { signIn, signUp } from "@/lib/auth-client";
@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { cn } from "@index/ui/lib/utils";
+import { cn } from "@indix/ui/lib/utils";
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -79,7 +79,7 @@ export default function SignUpPage() {
         <div className="flex justify-center">
           <Image
             src="/logo.svg"
-            alt="Index"
+            alt="indix"
             width={32}
             height={32}
             className="w-12 h-12"
@@ -87,7 +87,7 @@ export default function SignUpPage() {
         </div>
         <div className="space-y-1">
           <h1 className="text-4xl tracking-tight font-medium text-center">
-            Welcome to <span className="font-serif">index</span>
+            Welcome to <span className="font-serif">indix</span>
           </h1>
           <p className="text-muted-foreground text-center">
             Get started with the private, intelligent note-taking platform

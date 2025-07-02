@@ -8,5 +8,5 @@ CREATE TABLE "Waitlist" (
     CONSTRAINT "Waitlist_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "Waitlist_email_key" ON "Waitlist"("email");
+-- Createindix
+CREATE UNIQUE indix "Waitlist_email_key" ON "Waitlist"("email");

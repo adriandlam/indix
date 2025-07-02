@@ -1,7 +1,7 @@
 "use server";
 
 import { resend } from "@/lib/resend";
-import { prisma } from "@index/db";
+import { prisma } from "@indix/db";
 import { z } from "zod";
 
 const waitlistSchema = z.object({
@@ -51,7 +51,7 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
     }
 
     return {
-      message: "Thanks for joining! We'll notify you when Index is ready.",
+      message: "Thanks for joining! We'll notify you when indix is ready.",
     };
   } catch (error) {
     console.error(
@@ -65,7 +65,7 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
   // const response = await resend.emails.send({
   //   from: "Adrian <me@adriandlam.com>",
   //   to: [email],
-  //   subject: "Welcome to Index",
+  //   subject: "Welcome to indix",
   //   html: "<p>Thank you for joining the waitlist!</p>",
   // });
 

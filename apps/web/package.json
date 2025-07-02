@@ -1,5 +1,5 @@
 {
-  "name": "@index/web",
+  "name": "@indix/web",
   "version": "0.0.1",
   "type": "module",
   "private": true,
@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
-    "@index/db": "workspace:*",
-    "@index/ui": "workspace:*",
+    "@indix/db": "workspace:*",
+    "@indix/ui": "workspace:*",
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.10.1",
     "better-auth": "^1.2.12",
     "framer-motion": "^12.20.1",
@@ -31,10 +31,10 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@index/auth": "workspace:*",
-    "@index/db": "workspace:*",
-    "@index/eslint-config": "workspace:^",
-    "@index/typescript-config": "workspace:*",
+    "@indix/auth": "workspace:*",
+    "@indix/db": "workspace:*",
+    "@indix/eslint-config": "workspace:^",
+    "@indix/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

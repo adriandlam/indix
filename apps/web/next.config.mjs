@@ -2,7 +2,7 @@ import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@index/ui", "@index/db"],
+  transpilePackages: ["@indix/ui", "@indix/db"],
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];

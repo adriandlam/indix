@@ -5,13 +5,13 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@index/ui/components/input-otp";
+} from "@indix/ui/components/input-otp";
 import { useEffect, useState } from "react";
-import { Button } from "@index/ui/components/button";
-import { Input } from "@index/ui/components/input";
-import { Label } from "@index/ui/components/label";
-import { Loader } from "@index/ui/components/loader";
-import { Separator } from "@index/ui/components/separator";
+import { Button } from "@indix/ui/components/button";
+import { Input } from "@indix/ui/components/input";
+import { Label } from "@indix/ui/components/label";
+import { Loader } from "@indix/ui/components/loader";
+import { Separator } from "@indix/ui/components/separator";
 import {
   Form,
   FormControl,
@@ -19,7 +19,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@index/ui/components/form";
+} from "@indix/ui/components/form";
 import { Link } from "@/components/link";
 import Image from "next/image";
 import { signIn, signUp } from "@/lib/auth-client";
@@ -85,7 +85,7 @@ export default function VerifyPage() {
         <div className="flex justify-center">
           <Image
             src="/logo.svg"
-            alt="Index"
+            alt="indix"
             width={32}
             height={32}
             className="w-12 h-12"
@@ -121,27 +121,27 @@ export default function VerifyPage() {
                       <InputOTP maxLength={6} {...field}>
                         <InputOTPGroup className="mx-auto">
                           <InputOTPSlot
-                            index={0}
+                            indix={0}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            index={1}
+                            indix={1}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            index={2}
+                            indix={2}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            index={3}
+                            indix={3}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            index={4}
+                            indix={4}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            index={5}
+                            indix={5}
                             className="w-11 h-11 text-base"
                           />
                         </InputOTPGroup>

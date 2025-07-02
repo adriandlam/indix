@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/components/link";
-import { Button } from "@index/ui/components/button";
+import { Button } from "@indix/ui/components/button";
 import Image from "next/image";
 
 export default function VerifyPage() {
@@ -11,7 +11,7 @@ export default function VerifyPage() {
         <div className="flex justify-center">
           <Image
             src="/logo.svg"
-            alt="Index"
+            alt="indix"
             width={32}
             height={32}
             className="w-12 h-12"

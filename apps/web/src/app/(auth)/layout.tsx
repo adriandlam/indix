@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/components/link";
-import { Button } from "@index/ui/components/button";
+import { Button } from "@indix/ui/components/button";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";

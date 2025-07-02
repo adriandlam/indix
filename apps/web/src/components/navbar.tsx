@@ -1,5 +1,5 @@
-import { Button } from "@index/ui/components/button";
-import { Separator } from "@index/ui/components/separator";
+import { Button } from "@indix/ui/components/button";
+import { Separator } from "@indix/ui/components/separator";
 import { Link } from "@/components/link";
 import Image from "next/image";
 import WhyModal from "./why-modal";
@@ -15,12 +15,12 @@ export default function Navbar() {
         >
           <Image
             src="/logo.svg"
-            alt="Index"
+            alt="indix"
             width={32}
             height={32}
             className="w-9 h-9"
           />
-          <span>index</span>
+          <span>indix</span>
         </Link>
         <div className="flex items-center gap-2">
           <WhyModal />
@@ -30,7 +30,7 @@ export default function Navbar() {
           />
           <Button asChild size="icon" variant="ghost">
             <Link
-              href="https://github.com/adriandlam/index"
+              href="https://github.com/adriandlam/indix"
               target="_blank"
               rel="noopener noreferrer"
             >

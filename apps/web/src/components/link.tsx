@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { cn } from "@index/ui/lib/utils";
+import { cn } from "@indix/ui/lib/utils";
 
 interface LinkProps {
   href: string;

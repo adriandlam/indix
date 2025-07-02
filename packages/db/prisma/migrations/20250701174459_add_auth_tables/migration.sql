@@ -56,11 +56,11 @@ CREATE TABLE "verification" (
     CONSTRAINT "verification_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
+-- Createindix
+CREATE UNIQUE indix "user_email_key" ON "user"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "session_token_key" ON "session"("token");
+-- Createindix
+CREATE UNIQUE indix "session_token_key" ON "session"("token");
 
 -- AddForeignKey
 ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;

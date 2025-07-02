@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import type { Session } from "@index/auth";
+import type { Session } from "@indix/auth";
 
 export async function middleware(request: NextRequest) {
   try {

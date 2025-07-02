@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@index/ui/components/button";
+import { Button } from "@indix/ui/components/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -74,7 +74,7 @@ export default function WhyModal() {
                   <h1 className="text-2xl font-medium">Why?</h1>
                   <p className="opacity-75">
                     <span className="font-medium font-serif opacity-100">
-                      Index
+                      indix
                     </span>{" "}
                     was created as an open source alternative and fun side
                     project, built with a deep understanding of the importance
