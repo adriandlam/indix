@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@indix/ui/components/input-otp";
-import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@indix/ui/components/button";
-import { Input } from "@indix/ui/components/input";
-import { Label } from "@indix/ui/components/label";
-import { Loader } from "@indix/ui/components/loader";
-import { Separator } from "@indix/ui/components/separator";
 import {
   Form,
   FormControl,
@@ -20,17 +11,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@indix/ui/components/form";
-import { Link } from "@/components/link";
+import { Input } from "@indix/ui/components/input";
+import { Loader } from "@indix/ui/components/loader";
+import { cn } from "@indix/ui/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import Image from "next/image";
-import { authClient, signIn, signUp, useSession } from "@/lib/auth-client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { AnimatePresence, motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
-import { cn } from "@indix/ui/lib/utils";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { z } from "zod";
 
 const formSchema = z.object({
   password: z

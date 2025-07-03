@@ -1,34 +1,26 @@
 "use client";
 
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@indix/ui/components/input-otp";
-import { useEffect, useState } from "react";
-import { Button } from "@indix/ui/components/button";
-import { Input } from "@indix/ui/components/input";
-import { Label } from "@indix/ui/components/label";
-import { Loader } from "@indix/ui/components/loader";
-import { Separator } from "@indix/ui/components/separator";
+import { authClient, useSession } from "@/lib/auth-client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
 } from "@indix/ui/components/form";
-import { Link } from "@/components/link";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@indix/ui/components/input-otp";
+import { Loader } from "@indix/ui/components/loader";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { authClient, signIn, signUp, useSession } from "@/lib/auth-client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { z } from "zod";
 
 const formSchema = z.object({
   code: z.string().min(1),
@@ -121,13 +113,6 @@ export default function VerifyPage() {
       </div>
       <div className="max-w-md mx-auto space-y-6">
         <div className="space-y-4.5">
-          {/* <div>
-            </div> */}
-          {/* <div className="flex items-center gap-2 justify-center h-11 bg-background/50 backdrop-blur-sm border border-border/50 rounded-md">
-              <Loader />
-              <span className="text-sm font-medium">Redirecting...</span>
-            </div> */}
-          {/* </div> */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField

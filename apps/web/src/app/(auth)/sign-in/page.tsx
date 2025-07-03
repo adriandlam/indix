@@ -1,12 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Link } from "@/components/link";
+import { signIn } from "@/lib/auth-client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@indix/ui/components/button";
-import { Input } from "@indix/ui/components/input";
-import { Label } from "@indix/ui/components/label";
-import { Loader } from "@indix/ui/components/loader";
-import { Separator } from "@indix/ui/components/separator";
 import {
   Form,
   FormControl,
@@ -15,16 +12,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@indix/ui/components/form";
-import { Link } from "@/components/link";
-import Image from "next/image";
-import { signIn } from "@/lib/auth-client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { Input } from "@indix/ui/components/input";
+import { Loader } from "@indix/ui/components/loader";
+import { Separator } from "@indix/ui/components/separator";
+import { cn } from "@indix/ui/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { cn } from "@indix/ui/lib/utils";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email().min(1),
