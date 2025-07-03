@@ -55,9 +55,10 @@ export default function SignInPage() {
   });
 
   async function onSubmit(data: FormValues) {
+    const cleanedEmail = data.email.toLowerCase();
     await signIn.email(
       {
-        email: data.email,
+        email: cleanedEmail,
         password: data.password,
       },
       {

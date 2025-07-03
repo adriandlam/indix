@@ -4,7 +4,7 @@ import { Link } from "@/components/link";
 import { Button } from "@indix/ui/components/button";
 import Image from "next/image";
 
-export default function VerifyPage() {
+export default function AuthErrorPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-8">
@@ -29,11 +29,11 @@ export default function VerifyPage() {
       <div className="max-w-md mx-auto space-y-6">
         <div className="space-y-4.5">
           {/* <div>
-            </div> */}
+           </div> */}
           {/* <div className="flex items-center gap-2 justify-center h-11 bg-background/50 backdrop-blur-sm border border-border/50 rounded-md">
-              <Loader />
-              <span className="text-sm font-medium">Redirecting...</span>
-            </div> */}
+            <Loader />
+            <span className="text-sm font-medium">Redirecting...</span>
+           </div> */}
           {/* </div> */}
           <p className="text-center text-xs text-muted-foreground">
             If you think this is an error, please contact me at{" "}

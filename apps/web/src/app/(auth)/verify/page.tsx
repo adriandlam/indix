@@ -62,11 +62,17 @@ export default function VerifyPage() {
   }, [code]);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+
     if (resendRemainingTime > 0) {
-      setTimeout(() => {
-        setResendRemainingTime(resendRemainingTime - 1);
+      timer = setTimeout(() => {
+        setResendRemainingTime((prev) => prev - 1);
       }, 1000);
     }
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [resendRemainingTime]);
 
   async function onSubmit(formData: FormValues) {
@@ -88,7 +94,7 @@ export default function VerifyPage() {
       router.push("/notes");
       toast.success("Account verified successfully!");
     } catch (error) {
-      toast.error("Failed to create account");
+      toast.error("Failed to verify email, please try again.");
     }
   }
 

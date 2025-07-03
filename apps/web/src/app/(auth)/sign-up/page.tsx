@@ -55,10 +55,11 @@ export default function SignUpPage() {
   });
 
   async function onSubmit(data: FormValues) {
+    const cleanedEmail = data.email.toLowerCase();
     await signUp.email(
       {
         name: "",
-        email: data.email,
+        email: cleanedEmail,
         password: data.password,
       },
       {
@@ -67,7 +68,6 @@ export default function SignUpPage() {
           router.push("/verify");
         },
         onError: (ctx) => {
-          console.log(ctx);
           toast.error(ctx.error.message);
         },
       }
