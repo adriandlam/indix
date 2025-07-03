@@ -29,11 +29,7 @@ export default function Navbar() {
             className="data-[orientation=vertical]:h-4 ml-4"
           />
           <Button asChild size="icon" variant="ghost">
-            <Link
-              href="https://github.com/adriandlam/indix"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="https://github.com/adriandlam/indix" external>
               <svg
                 role="img"
                 fill="currentColor"

@@ -1,7 +1,7 @@
 "use server";
 
 import { resend } from "@/lib/resend";
-import { prisma } from "@indix/db";
+import { Prisma, prisma } from "@indix/db";
 import { z } from "zod";
 
 const waitlistSchema = z.object({
@@ -57,7 +57,10 @@ export async function joinWaitlist(data: z.infer<typeof waitlistSchema>) {
     };
   } catch (error) {
     // Handle unique constraint violation (email already exists)
-    if (error.code === "P2002") {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
       return {
         message:
           "Thanks! You're already on our waitlist. We'll be in touch soon!",
