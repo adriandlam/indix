@@ -1,5 +1,6 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
+import { auth } from "@indix/auth";
 
 import type { Session } from "@indix/auth";
 
@@ -24,8 +25,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
+    if (session && !user.emailVerified) {
+      return NextResponse.redirect(new URL("/verify", request.url));
+    }
+
     // Has session and trying to access auth route -> redirect to home
-    if (session && isAuthRoute) {
+    if (session && isAuthRoute && user.emailVerified) {
       return NextResponse.redirect(new URL("/notes", request.url));
     }
   } catch (error) {

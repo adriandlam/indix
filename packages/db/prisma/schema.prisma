@@ -35,7 +35,8 @@ model User {
   accounts      Account[]
 
   @@unique([email])
-  @@map("user")
+  @@index([email])
+  @@map("users")
 }
 
 model Session {
@@ -50,7 +51,8 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
-  @@map("session")
+  @@index([userId, token])
+  @@map("sessions")
 }
 
 model Account {
@@ -69,7 +71,8 @@ model Account {
   createdAt             DateTime  @default(now()) @map("created_at")
   updatedAt             DateTime  @updatedAt @map("updated_at")
 
-  @@map("account")
+  @@index([userId])
+  @@map("accounts")
 }
 
 model Verification {
@@ -80,5 +83,6 @@ model Verification {
   createdAt  DateTime? @default(now()) @map("created_at")
   updatedAt  DateTime? @updatedAt @map("updated_at")
 
-  @@map("verification")
+  @@index([identifier])
+  @@map("verifications")
 }
