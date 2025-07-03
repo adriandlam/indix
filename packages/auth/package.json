@@ -5,12 +5,12 @@
   "private": true,
   "scripts": {},
   "devDependencies": {
-    "@types/node": "^20.17.19"
+    "@types/node": "^20.19.4"
   },
   "dependencies": {
     "@indix/db": "workspace:*",
     "better-auth": "^1.2.12",
-    "resend": "^4.0.1"
+    "resend": "^4.6.0"
   },
   "exports": {
     ".": "./src/index.ts"

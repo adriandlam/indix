@@ -9,11 +9,11 @@
     "db:deploy": "prisma migrate deploy"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "prisma": "^6.10.1"
+    "@types/node": "^20.19.4",
+    "prisma": "^6.11.1"
   },
   "dependencies": {
-    "@prisma/client": "^6.10.1"
+    "@prisma/client": "^6.11.1"
   },
   "exports": {
     ".": "./src/index.ts"
