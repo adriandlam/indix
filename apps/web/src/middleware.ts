@@ -1,6 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
-import { auth } from "@indix/auth";
 
 import type { Session } from "@indix/auth";
 
@@ -25,7 +23,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
-    if (session && !user.emailVerified) {
+    if (session && user && !user.emailVerified) {
       return NextResponse.redirect(new URL("/verify", request.url));
     }
 

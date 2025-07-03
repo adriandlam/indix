@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
           </p>
         </div>
       </div>
-      <div className="max-w-sm mx-auto space-y-">
+      <div className="max-w-sm mx-auto space-y-6">
         <div className="space-y-4.5">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

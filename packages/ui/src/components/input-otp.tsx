@@ -37,14 +37,14 @@ function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function InputOTPSlot({
-  indix,
+  index,
   className,
   ...props
 }: React.ComponentProps<"div"> & {
-  indix: number;
+  index: number;
 }) {
   const inputOTPContext = React.useContext(OTPInputContext);
-  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[indix] ?? {};
+  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {};
 
   return (
     <div

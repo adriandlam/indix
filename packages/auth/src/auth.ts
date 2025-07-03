@@ -14,7 +14,7 @@ export const auth = betterAuth({
       async sendVerificationOTP({ email, otp, type }) {
         try {
           await resend.emails.send({
-            from: process.env.FROM_EMAIL || "noreply@indix.app",
+            from: "noreply@indix.app",
             to: email,
             subject: "Your indix verification code",
             html: `
@@ -48,7 +48,7 @@ export const auth = betterAuth({
     enabled: true,
     sendResetPassword: async ({ user, url, token }, request) => {
       await resend.emails.send({
-        from: process.env.FROM_EMAIL || "noreply@indix.app",
+        from: "noreply@indix.app",
         to: user.email,
         subject: "Reset your password",
         html: `

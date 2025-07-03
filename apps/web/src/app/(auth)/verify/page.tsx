@@ -49,7 +49,9 @@ export default function VerifyPage() {
   useEffect(() => {
     if (code.length === 6) {
       setVerifying(true);
-      onSubmit({ code });
+      onSubmit({ code }).finally(() => {
+        setVerifying(false);
+      });
     }
   }, [code]);
 
@@ -87,6 +89,8 @@ export default function VerifyPage() {
       toast.success("Account verified successfully!");
     } catch (error) {
       toast.error("Failed to verify email, please try again.");
+    } finally {
+      setVerifying(false);
     }
   }
 
@@ -125,27 +129,27 @@ export default function VerifyPage() {
                       <InputOTP maxLength={6} {...field}>
                         <InputOTPGroup className="mx-auto">
                           <InputOTPSlot
-                            indix={0}
+                            index={0}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            indix={1}
+                            index={1}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            indix={2}
+                            index={2}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            indix={3}
+                            index={3}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            indix={4}
+                            index={4}
                             className="w-11 h-11 text-base"
                           />
                           <InputOTPSlot
-                            indix={5}
+                            index={5}
                             className="w-11 h-11 text-base"
                           />
                         </InputOTPGroup>

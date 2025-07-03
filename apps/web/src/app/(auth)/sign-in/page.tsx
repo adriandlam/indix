@@ -269,7 +269,7 @@ export default function SignInPage() {
                 {form.formState.isSubmitting ? (
                   <>
                     <Loader variant="secondary" />
-                    <span>Creating account...</span>
+                    <span>Signing in...</span>
                   </>
                 ) : (
                   "Sign In"
