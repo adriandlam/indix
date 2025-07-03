@@ -1,3 +1,3 @@
-# `@index/typescript-config`
+# `@indix/typescript-config`
 
 Shared typescript configuration for the workspace.

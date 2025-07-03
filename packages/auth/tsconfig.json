@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@index/auth/*": ["./src/*"]
+      "@indix/auth/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

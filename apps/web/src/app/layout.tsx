@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
-import "@index/ui/globals.css";
+import "@indix/ui/globals.css";
 import { Providers } from "@/components/providers";
-import { Toaster } from "@index/ui/components/sonner";
-import { Loader } from "@index/ui/components/loader";
+import { Toaster } from "@indix/ui/components/sonner";
+import { Loader } from "@indix/ui/components/loader";
 import {
   CircleAlert,
   CircleCheck,

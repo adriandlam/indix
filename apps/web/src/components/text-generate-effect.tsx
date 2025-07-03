@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { cn } from "@index/ui/lib/utils";
+import { cn } from "@indix/ui/lib/utils";
 import React from "react";
 
 function TextGenerateEffect({

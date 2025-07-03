@@ -1,4 +1,4 @@
-import { cn } from "@index/ui/lib/utils";
+import { cn } from "@indix/ui/lib/utils";
 
 export function Loader({
   className,

@@ -1,6 +1,6 @@
-import { Button } from "@index/ui/components/button";
-import { Separator } from "@index/ui/components/separator";
-import Link from "next/link";
+import { Button } from "@indix/ui/components/button";
+import { Separator } from "@indix/ui/components/separator";
+import { Link } from "@/components/link";
 import Image from "next/image";
 import WhyModal from "./why-modal";
 
@@ -9,15 +9,16 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 w-full border-b border-dashed z-40">
       <div className="mx-auto max-w-screen-xl p-4 flex items-center justify-between">
         <Link
+          removeUnderline
           href="/"
           className="font-medium tracking-tighter font-serif text-2xl hover:opacity-80 transition-opacity flex items-center gap-2.5"
         >
           <Image
             src="/logo.svg"
-            alt="Index"
+            alt="indix"
             width={32}
             height={32}
-            className="w-9 h-9 rounded-lg border border-border/75"
+            className="w-9 h-9"
           />
           <span>indix</span>
         </Link>
@@ -28,11 +29,7 @@ export default function Navbar() {
             className="data-[orientation=vertical]:h-4 ml-4"
           />
           <Button asChild size="icon" variant="ghost">
-            <Link
-              href="https://github.com/adriandlam/index"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="https://github.com/adriandlam/indix" external>
               <svg
                 role="img"
                 fill="currentColor"

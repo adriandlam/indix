@@ -1,10 +1,10 @@
 {
-  "extends": "@index/typescript-config/nextjs.json",
+  "extends": "@indix/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@index/ui/*": ["../../packages/ui/src/*"]
+      "@indix/ui/*": ["../../packages/ui/src/*"]
     },
     "plugins": [
       {

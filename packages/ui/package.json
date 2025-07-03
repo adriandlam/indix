@@ -1,5 +1,5 @@
 {
-  "name": "@index/ui",
+  "name": "@indix/ui",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -57,8 +57,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@index/eslint-config": "workspace:*",
-    "@index/typescript-config": "workspace:*",
+    "@indix/eslint-config": "workspace:*",
+    "@indix/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.0.8",
     "@turbo/gen": "^2.4.2",
     "@types/node": "^20",

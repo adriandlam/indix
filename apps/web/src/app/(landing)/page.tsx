@@ -3,15 +3,15 @@
 import { useRef, useState, useEffect } from "react";
 import TextGenerateEffect from "@/components/text-generate-effect";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@index/ui/components/button";
+import { Button } from "@indix/ui/components/button";
 import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
-} from "@index/ui/components/form";
-import { Input } from "@index/ui/components/input";
+} from "@indix/ui/components/form";
+import { Input } from "@indix/ui/components/input";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { joinWaitlist } from "./actions";
 import { useHotkeys } from "react-hotkeys-hook";
-import { Loader } from "@index/ui/components/loader";
+import { Loader } from "@indix/ui/components/loader";
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -142,7 +142,7 @@ export default function Home() {
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            Index is the intelligent note-taking platform. AI-powered insights
+            indix is the intelligent note-taking platform. AI-powered insights
             that never leave your device.
           </motion.p>
         </div>

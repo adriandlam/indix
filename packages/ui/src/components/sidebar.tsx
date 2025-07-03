@@ -5,25 +5,25 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 
-import { useIsMobile } from "@index/ui/hooks/use-mobile";
-import { cn } from "@index/ui/lib/utils";
-import { Button } from "@index/ui/components/button";
-import { Input } from "@index/ui/components/input";
-import { Separator } from "@index/ui/components/separator";
+import { useIsMobile } from "@indix/ui/hooks/use-mobile";
+import { cn } from "@indix/ui/lib/utils";
+import { Button } from "@indix/ui/components/button";
+import { Input } from "@indix/ui/components/input";
+import { Separator } from "@indix/ui/components/separator";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@index/ui/components/sheet";
-import { Skeleton } from "@index/ui/components/skeleton";
+} from "@indix/ui/components/sheet";
+import { Skeleton } from "@indix/ui/components/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@index/ui/components/tooltip";
+} from "@indix/ui/components/tooltip";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -287,7 +287,7 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
       data-sidebar="rail"
       data-slot="sidebar-rail"
       aria-label="Toggle Sidebar"
-      tabIndex={-1}
+      tabindix={-1}
       onClick={toggleSidebar}
       title="Toggle Sidebar"
       className={cn(
