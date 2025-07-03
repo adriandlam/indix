@@ -22,6 +22,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { Suspense } from "react";
 
 const formSchema = z.object({
   password: z
@@ -36,16 +37,26 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function ResetPasswordPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center gap-2 justify-center h-screen">
+          <Loader variant="secondary" />
+          <span>Loading...</span>
+        </div>
+      }
+    >
+      <ResetPasswordForm />
+    </Suspense>
+  );
+}
+
+function ResetPasswordForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") ?? "";
-
-  if (!token) {
-    router.push("/sign-in");
-    return null;
-  }
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -54,6 +65,11 @@ export default function ResetPasswordPage() {
     },
     mode: "onChange",
   });
+
+  if (!token) {
+    router.push("/sign-in");
+    return null;
+  }
 
   async function onSubmit(formData: FormValues) {
     try {
