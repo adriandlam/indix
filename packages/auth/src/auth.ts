@@ -29,7 +29,7 @@ export const auth = betterAuth({
               ${otp}
             </div>
             <p>
-            This code will expire in 10 minutes. If you didn't request this code, you can safely ignore this email.
+            This code will expire in 5 minutes. If you didn't request this code, you can safely ignore this email.
             </p>
             </div>
               `,
