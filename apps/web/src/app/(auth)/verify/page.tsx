@@ -22,12 +22,13 @@ import {
 } from "@indix/ui/components/form";
 import { Link } from "@/components/link";
 import Image from "next/image";
-import { signIn, signUp } from "@/lib/auth-client";
+import { authClient, signIn, signUp, useSession } from "@/lib/auth-client";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   code: z.string().min(1),
@@ -40,6 +41,8 @@ const RESEND_TIME = 30;
 export default function VerifyPage() {
   const [verifying, setVerifying] = useState(false);
   const [resendRemainingTime, setResendRemainingTime] = useState(RESEND_TIME);
+  const session = useSession();
+  const router = useRouter();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -54,6 +57,7 @@ export default function VerifyPage() {
   useEffect(() => {
     if (code.length === 6) {
       setVerifying(true);
+      onSubmit({ code });
     }
   }, [code]);
 
@@ -65,15 +69,24 @@ export default function VerifyPage() {
     }
   }, [resendRemainingTime]);
 
-  async function onSubmit(data: FormValues) {
-    try {
-      //   await signUp.email({
-      //     name: "",
-      //     email: data.email,
-      //     password: data.password,
-      //   });
+  async function onSubmit(formData: FormValues) {
+    if (!session.data?.user?.email) {
+      router.push("/sign-up");
+      return;
+    }
 
-      toast.success("Account created successfully!");
+    try {
+      const { error } = await authClient.emailOtp.verifyEmail({
+        email: session.data?.user?.email,
+        otp: formData.code,
+      });
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      router.push("/notes");
+      toast.success("Account verified successfully!");
     } catch (error) {
       toast.error("Failed to create account");
     }
@@ -172,8 +185,14 @@ export default function VerifyPage() {
             <button
               className="cursor-pointer disabled:cursor-default underline underline-offset-4 hover:text-foreground transition-colors disabled:opacity-50 disabled:hover:text-muted-foreground"
               disabled={resendRemainingTime > 0}
-              onClick={() => {
+              onClick={async () => {
                 setResendRemainingTime(RESEND_TIME);
+                if (session.data?.user?.email) {
+                  await authClient.emailOtp.sendVerificationOtp({
+                    email: session.data?.user?.email,
+                    type: "email-verification",
+                  });
+                }
               }}
             >
               {resendRemainingTime > 0

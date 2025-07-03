@@ -18,18 +18,20 @@ export const auth = betterAuth({
             to: email,
             subject: "Your indix verification code",
             html: `
-                <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-                  <h1 style="color: #1a1a1a; margin-bottom: 24px;">Your verification code</h1>
-                  <p style="color: #666; margin-bottom: 32px;">
-                    Use this code to complete your sign-in to indix:
-                  </p>
-                  <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 24px; text-align: center; margin-bottom: 32px;">
-                    <span style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #1a1a1a;">${otp}</span>
-                  </div>
-                  <p style="color: #666; font-size: 14px;">
-                    This code will expire in 10 minutes. If you didn't request this code, you can safely ignore this email.
-                  </p>
-                </div>
+            <div>
+            <h1>
+            Your verification code
+            </h1>
+            <p>
+            Use this code to complete your sign-in to indix:
+            </p>
+            <div>
+              ${otp}
+            </div>
+            <p>
+            This code will expire in 10 minutes. If you didn't request this code, you can safely ignore this email.
+            </p>
+            </div>
               `,
           });
         } catch (error) {
