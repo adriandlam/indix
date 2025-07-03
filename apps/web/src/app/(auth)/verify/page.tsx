@@ -112,9 +112,9 @@ export default function VerifyPage() {
         </div>
         <div className="space-y-1">
           <h1 className="text-4xl tracking-tight font-medium text-center">
-            Verify Email
+            Verify Your Email
           </h1>
-          <p className="text-muted-foreground text-center">
+          <p className="text-muted-foreground text-center max-w-sm mx-auto">
             We&apos;ve sent a verification code to your email
           </p>
         </div>

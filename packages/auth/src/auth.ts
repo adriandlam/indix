@@ -46,6 +46,20 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url, token }, request) => {
+      await resend.emails.send({
+        from: process.env.FROM_EMAIL || "noreply@indix.app",
+        to: user.email,
+        subject: "Reset your password",
+        html: `
+        <div>
+        <h1>Reset your password</h1>
+        <p>Click the link to reset your password:</p>
+        <a href="${url}">Reset password</a>
+        </div>
+        `,
+      });
+    },
   },
   socialProviders: {
     github: {

@@ -90,7 +90,7 @@ export default function SignUpPage() {
           <h1 className="text-4xl tracking-tight font-medium text-center">
             Welcome to <span className="font-serif">indix</span>
           </h1>
-          <p className="text-muted-foreground text-center">
+          <p className="text-muted-foreground text-center max-w-sm mx-auto">
             Get started with the private, intelligent note-taking platform
           </p>
         </div>
@@ -205,7 +205,7 @@ export default function SignUpPage() {
                     <div className="relative">
                       <FormControl>
                         <Input
-                          placeholder="Password"
+                          placeholder="••••••••"
                           type={showPassword ? "text" : "password"}
                           disabled={
                             form.formState.isSubmitting || githubLoading
@@ -280,66 +280,6 @@ export default function SignUpPage() {
             </Link>
           </p>
         </div>
-        {/* <motion.div
-          className="max-w-md mx-auto"
-          initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{
-            delay: 1,
-            duration: 2.25,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-        > */}
-        {/* <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col md:flex-row gap-2 w-full"
-            >
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          disabled={form.formState.isSubmitting}
-                          placeholder="Press / to focus"
-                          required
-                          {...field}
-                          ref={(e) => {
-                            field.ref(e);
-                            inputRef.current = e;
-                          }}
-                        />
-                        {isValidating &&
-                          emailValue &&
-                          !form.formState.isSubmitting && (
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center">
-                              <Loader />
-                            </div>
-                          )}
-                      </div>
-                    </FormControl>
-                    <FormDescription className="text-xs md:inline hidden ml-2">
-                      I&apos;ll notify you when we&apos;re ready to launch
-                    </FormDescription>
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? (
-                  <>
-                    <Loader variant="secondary" />
-                    <span>Joining...</span>
-                  </>
-                ) : (
-                  <span>Join the waitlist</span>
-                )}
-              </Button>
-            </form>
-          </Form> */}
-        {/* </motion.div> */}
       </div>
     </div>
   );
