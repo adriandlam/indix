@@ -25,6 +25,8 @@ import { CodeNode, CodeHighlightNode } from "@lexical/code";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 import { TextNode } from "lexical";
 
+import LZString from "lz-string";
+
 // const theme = {
 //   // Text formatting - matching your design system
 //   text: {
@@ -107,7 +109,9 @@ function LexicalEditor() {
   const debouncedOnChange = useDebouncedCallback((editorState: EditorState) => {
     // Here you can handle saving content, syncing, etc.
     const serializedState = JSON.stringify(editorState.toJSON());
-    console.log("Editor state changed:", serializedState);
+
+    // Compress with LZString
+    const compressed = LZString.compressToBase64(serializedState);
   }, 1000);
 
   return (

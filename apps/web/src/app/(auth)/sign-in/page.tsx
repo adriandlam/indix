@@ -62,7 +62,6 @@ export default function SignInPage() {
       },
       {
         onSuccess: () => {
-          toast.success("Signed in successfully!");
           router.push("/notes");
         },
         onError: (ctx) => {

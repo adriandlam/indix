@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/components/link";
+import useEncryptionStore from "@/stores/encryption-store";
 import { signIn, signUp } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@indix/ui/components/button";
@@ -41,6 +42,7 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  const { setPassword } = useEncryptionStore();
 
   const router = useRouter();
 
@@ -63,7 +65,6 @@ export default function SignUpPage() {
       },
       {
         onSuccess: () => {
-          toast.success("Account created successfully!");
           router.push("/verify");
         },
         onError: (ctx) => {

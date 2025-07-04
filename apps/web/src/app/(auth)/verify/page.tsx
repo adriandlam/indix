@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient, useSession } from "@/lib/auth-client";
+import useEncryptionStore from "@/stores/encryption-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -35,6 +36,7 @@ export default function VerifyPage() {
   const [resendRemainingTime, setResendRemainingTime] = useState(RESEND_TIME);
   const session = useSession();
   const router = useRouter();
+  const { password, setEncryptionKey } = useEncryptionStore();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -74,6 +76,20 @@ export default function VerifyPage() {
       router.push("/sign-up");
       return;
     }
+
+    // TODO: implement encryption
+    // const encryptionSalt = session.data?.user?.encryptionSalt;
+
+    // const encryptionKey = await deriveScryptKey(
+    //   password,
+    //   session.data?.user?.encryptionSalt
+    // );
+
+    // const key = await deriveScryptKey(password, encryptionSalt);
+
+    // console.log(key);
+
+    // return;
 
     try {
       const { error } = await authClient.emailOtp.verifyEmail({

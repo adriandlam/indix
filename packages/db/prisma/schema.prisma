@@ -24,15 +24,17 @@ model Waitlist {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false) @map("email_verified")
-  image         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  sessions      Session[]
-  accounts      Account[]
+  id             String    @id
+  name           String
+  email          String
+  emailVerified  Boolean   @default(false) @map("email_verified")
+  image          String?
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+  sessions       Session[]
+  accounts       Account[]
+  notes          Note[]
+  encryptionSalt String?   @map("encryption_salt")
 
   @@unique([email])
   @@map("users")
@@ -85,4 +87,18 @@ model Verification {
 
   @@index([identifier])
   @@map("verifications")
+}
+
+model Note {
+  id               String   @id @default(uuid())
+  title            String?
+  tags             String[] @default([])
+  encryptedContent String   @map("encrypted_content")
+  isEncrypted      Boolean  @default(true) @map("is_encrypted")
+  userId           String   @map("user_id")
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("notes")
 }
