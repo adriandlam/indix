@@ -1,7 +1,7 @@
 "use client";
 
-import { $getRoot, $getSelection } from "lexical";
-import { useEffect } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { $getRoot, $getSelection, type EditorState } from "lexical";
 
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
@@ -44,12 +44,13 @@ import { TextNode } from "lexical";
 // };
 
 // Auto-link matchers for converting text to links
-const URL_MATCHER =
-  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-
 const MATCHERS = [
   (text: string) => {
-    const match = URL_MATCHER.exec(text);
+    // Create a new regex each time to avoid global flag issues
+    const urlRegex =
+      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/i;
+
+    const match = urlRegex.exec(text);
     if (match === null) {
       return null;
     }
@@ -71,72 +72,78 @@ function onError(error: Error) {
   console.error(error);
 }
 
-// Handle editor changes
-function onChange(editorState: any) {
-  // Here you can handle saving content, syncing, etc.
-  console.log("Editor state changed:", editorState);
-}
+const initialConfig = {
+  namespace: "indix-editor",
+  onError,
+  nodes: [
+    // Text nodes
+    TextNode,
+    // Link nodes
+    LinkNode,
+    AutoLinkNode,
+    // List nodes
+    ListNode,
+    ListItemNode,
+    // Rich text nodes
+    HeadingNode,
+    QuoteNode,
+    // Code nodes
+    CodeNode,
+    CodeHighlightNode,
+    // Other nodes
+    HorizontalRuleNode,
+  ],
+};
 
 export default function Editor() {
-  const initialConfig = {
-    namespace: "indix-editor",
-    onError,
-    nodes: [
-      // Text nodes
-      TextNode,
-      // Link nodes
-      LinkNode,
-      AutoLinkNode,
-      // List nodes
-      ListNode,
-      ListItemNode,
-      // Rich text nodes
-      HeadingNode,
-      QuoteNode,
-      // Code nodes
-      CodeNode,
-      CodeHighlightNode,
-      // Other nodes
-      HorizontalRuleNode,
-    ],
-  };
+  return (
+    <div className="flex-1 flex flex-col h-full w-full">
+      <LexicalEditor />
+    </div>
+  );
+}
+
+function LexicalEditor() {
+  const debouncedOnChange = useDebouncedCallback((editorState: EditorState) => {
+    // Here you can handle saving content, syncing, etc.
+    const serializedState = JSON.stringify(editorState.toJSON());
+    console.log("Editor state changed:", serializedState);
+  }, 1000);
 
   return (
-    <div className="flex-1 flex flex-col h-full w-full pt-24 p-6">
-      <LexicalComposer initialConfig={initialConfig}>
-        <div className="flex-1 relative">
-          <RichTextPlugin
-            contentEditable={
-              <div className="flex-1 w-full h-full overflow-y-auto">
-                <ContentEditable
-                  className="prose prose-neutral dark:prose-invert max-w-none w-full min-h-full focus:outline-none resize-none prose-headings:scroll-m-20 prose-headings:tracking-tight prose-headings:font-medium prose-h1:text-4xl prose-h2:text-3xl prose-h2:border-b prose-h2:pb-2 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-p:leading-7 prose-p:text-foreground prose-a:text-primary prose-a:font-medium prose-a:underline prose-a:underline-offset-4 hover:prose-a:no-underline prose-blockquote:border-l-2 prose-blockquote:border-border prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-code:font-medium prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:p-4 prose-li:marker:text-muted-foreground prose-strong:font-semibold prose-em:italic"
-                  aria-placeholder={"Enter some text..."}
-                  placeholder={
-                    <div className="absolute top-0 left-0 text-muted-foreground pointer-events-none select-none">
-                      Enter some text...
-                    </div>
-                  }
-                />
-              </div>
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-        </div>
-        {/* Core plugins */}
-        <HistoryPlugin />
-        <AutoFocusPlugin />
-        <OnChangePlugin onChange={onChange} />
+    <LexicalComposer initialConfig={initialConfig}>
+      <div className="flex-1 relative">
+        <RichTextPlugin
+          contentEditable={
+            <div className="flex-1 w-full h-full overflow-y-auto">
+              <ContentEditable
+                className="prose prose-neutral dark:prose-invert max-w-none w-full min-h-full pt-18 p-6 focus:outline-none resize-none prose-headings:scroll-m-20 prose-headings:tracking-tight prose-headings:font-medium prose-h1:text-4xl prose-h2:text-3xl prose-h2:border-b prose-h2:pb-2 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-p:leading-7 prose-p:my-0 prose-p:text-foreground prose-a:text-primary prose-a:underline prose-a:underline-offset-4 hover:prose-a:no-underline prose-blockquote:border-l-2 prose-blockquote:font-normal prose-blockquote:border-border prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-foreground/75 prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-code:font-medium prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:p-4 prose-li:marker:text-muted-foreground prose-strong:font-semibold prose-em:italic"
+                aria-placeholder={"Enter some text..."}
+                placeholder={
+                  <div className="absolute top-18 left-6 text-muted-foreground pointer-events-none select-none">
+                    Enter some text...
+                  </div>
+                }
+              />
+            </div>
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+      </div>
+      {/* Core plugins */}
+      <HistoryPlugin />
+      <AutoFocusPlugin />
+      <OnChangePlugin onChange={debouncedOnChange} />
 
-        {/* Text formatting and structure */}
-        <LinkPlugin />
-        <ListPlugin />
-        <CheckListPlugin />
-        <TabIndentationPlugin />
+      {/* Text formatting and structure */}
+      <LinkPlugin />
+      <ListPlugin />
+      <CheckListPlugin />
+      <TabIndentationPlugin />
 
-        {/* Auto-features */}
-        <AutoLinkPlugin matchers={MATCHERS} />
-        <MarkdownShortcutPlugin />
-      </LexicalComposer>
-    </div>
+      {/* Auto-features */}
+      <AutoLinkPlugin matchers={MATCHERS} />
+      <MarkdownShortcutPlugin />
+    </LexicalComposer>
   );
 }
