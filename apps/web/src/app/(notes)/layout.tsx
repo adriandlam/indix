@@ -21,13 +21,20 @@ import { toast } from "sonner";
 import { Button } from "@indix/ui/components/button";
 import { Sidebar } from "lucide-react";
 import { Separator } from "@indix/ui/components/separator";
+import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function NotesLayout({
+  modal,
   children,
 }: {
+  modal: React.ReactNode;
   children: React.ReactNode;
 }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const router = useRouter();
 
   // File menu actions
   const newNote = () => {
@@ -103,11 +110,6 @@ export default function NotesLayout({
     // TODO: Implement zoom functionality
   };
 
-  // Tools menu actions
-  const showSettings = () => {
-    // TODO: Implement settings
-  };
-
   const showWordCount = () => {
     toast.info("Word count: 0 words");
     // TODO: Implement word count
@@ -124,27 +126,30 @@ export default function NotesLayout({
   };
 
   // File menu keybinds
-  useHotkeys("cmd+n", newNote, { preventDefault: true });
-  useHotkeys("cmd+s", saveNote, { preventDefault: true });
-  useHotkeys("cmd+o", openNote, { preventDefault: true });
-  useHotkeys("cmd+backspace", deleteNote, { preventDefault: true });
+  useHotkeys("meta + n", newNote, { preventDefault: true });
+  useHotkeys("meta + s", saveNote, { preventDefault: true });
+  useHotkeys("meta + o", openNote, { preventDefault: true });
+  useHotkeys("meta + backspace", deleteNote, { preventDefault: true });
 
   // Edit menu keybinds
-  useHotkeys("cmd+z", undo, { preventDefault: true });
-  useHotkeys("cmd+shift+z", redo, { preventDefault: true });
-  useHotkeys("cmd+f", find, { preventDefault: true });
-  useHotkeys("cmd+alt+f", replace, { preventDefault: true });
-  useHotkeys("cmd+a", selectAll, { preventDefault: true });
+  useHotkeys("meta + z", undo, { preventDefault: true });
+  useHotkeys("meta + shift + z", redo, { preventDefault: true });
+  useHotkeys("meta + f", find, { preventDefault: true });
+  useHotkeys("meta + alt + f", replace, { preventDefault: true });
+  useHotkeys("meta + a", selectAll, { preventDefault: true });
 
   // View menu keybinds
-  useHotkeys("cmd+ctrl+f", toggleFullScreen, { preventDefault: true });
-  useHotkeys("cmd+plus", zoomIn, { preventDefault: true });
-  useHotkeys("cmd+minus", zoomOut, { preventDefault: true });
+  useHotkeys("meta + ctrl + f", toggleFullScreen, { preventDefault: true });
+  useHotkeys("meta + plus", zoomIn, { preventDefault: true });
+  useHotkeys("meta + minus", zoomOut, { preventDefault: true });
 
   // Tools menu keybinds
-  useHotkeys("cmd+comma", showSettings, { preventDefault: true });
-  useHotkeys("cmd+alt+c", showWordCount, { preventDefault: true });
-  useHotkeys("cmd+alt+i", showAIInsights, { preventDefault: true });
+  useHotkeys("meta + comma", () => router.push("/settings"), {
+    preventDefault: true,
+  });
+
+  useHotkeys("meta + alt + c", showWordCount, { preventDefault: true });
+  useHotkeys("meta + alt + i", showAIInsights, { preventDefault: true });
 
   return (
     <div>
@@ -257,14 +262,19 @@ export default function NotesLayout({
               <MenubarSeparator />
               <MenubarItem onClick={exportToPDF}>Export to PDF</MenubarItem>
               <MenubarSeparator />
-              <MenubarItem onClick={showSettings}>
-                Settings <MenubarShortcut>⌘,</MenubarShortcut>
+              <MenubarItem asChild>
+                <Link href="/settings">
+                  Settings <MenubarShortcut>⌘,</MenubarShortcut>
+                </Link>
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
       </nav>
       {children}
+      <AnimatePresence mode="wait" initial={false}>
+        {modal}
+      </AnimatePresence>
     </div>
   );
 }
