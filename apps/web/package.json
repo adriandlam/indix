@@ -21,6 +21,7 @@
     "@lexical/react": "^0.32.1",
     "@lexical/rich-text": "0.32.1",
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.11.1",
+    "@tailwindcss/typography": "^0.5.16",
     "better-auth": "^1.2.12",
     "framer-motion": "^12.23.0",
     "lexical": "^0.32.1",

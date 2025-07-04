@@ -23,11 +23,25 @@ import { ListNode, ListItemNode } from "@lexical/list";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { CodeNode, CodeHighlightNode } from "@lexical/code";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
+import { TextNode } from "lexical";
 
-const theme = {
-  // Theme styling goes here
-  //...
-};
+// const theme = {
+//   // Text formatting - matching your design system
+//   text: {
+//     bold: "font-semibold",
+//     italic: "italic",
+//     underline: "underline underline-offset-2",
+//     strikethrough: "line-through",
+//     code: "bg-muted px-1 py-0.5 rounded font-mono text-sm font-medium",
+//   },
+//   // Lists - customize checklist behavior
+//   list: {
+//     listitemChecked: "text-muted-foreground line-through",
+//     listitemUnchecked: "",
+//   },
+//   // Code blocks
+//   code: "bg-muted p-4 rounded border font-mono text-sm",
+// };
 
 // Auto-link matchers for converting text to links
 const URL_MATCHER =
@@ -66,9 +80,10 @@ function onChange(editorState: any) {
 export default function Editor() {
   const initialConfig = {
     namespace: "indix-editor",
-    theme,
     onError,
     nodes: [
+      // Text nodes
+      TextNode,
       // Link nodes
       LinkNode,
       AutoLinkNode,
@@ -81,36 +96,47 @@ export default function Editor() {
       // Code nodes
       CodeNode,
       CodeHighlightNode,
-
+      // Other nodes
       HorizontalRuleNode,
     ],
   };
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable
-            aria-placeholder={"Enter some text..."}
-            placeholder={<div>Enter some text...</div>}
+    <div className="flex-1 flex flex-col h-full w-full pt-24 p-6">
+      <LexicalComposer initialConfig={initialConfig}>
+        <div className="flex-1 relative">
+          <RichTextPlugin
+            contentEditable={
+              <div className="flex-1 w-full h-full overflow-y-auto">
+                <ContentEditable
+                  className="prose prose-neutral dark:prose-invert max-w-none w-full min-h-full focus:outline-none resize-none prose-headings:scroll-m-20 prose-headings:tracking-tight prose-headings:font-medium prose-h1:text-4xl prose-h2:text-3xl prose-h2:border-b prose-h2:pb-2 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-p:leading-7 prose-p:text-foreground prose-a:text-primary prose-a:font-medium prose-a:underline prose-a:underline-offset-4 hover:prose-a:no-underline prose-blockquote:border-l-2 prose-blockquote:border-border prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-code:font-medium prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:p-4 prose-li:marker:text-muted-foreground prose-strong:font-semibold prose-em:italic"
+                  aria-placeholder={"Enter some text..."}
+                  placeholder={
+                    <div className="absolute top-0 left-0 text-muted-foreground pointer-events-none select-none">
+                      Enter some text...
+                    </div>
+                  }
+                />
+              </div>
+            }
+            ErrorBoundary={LexicalErrorBoundary}
           />
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      {/* Core plugins */}
-      <HistoryPlugin />
-      <AutoFocusPlugin />
-      <OnChangePlugin onChange={onChange} />
+        </div>
+        {/* Core plugins */}
+        <HistoryPlugin />
+        <AutoFocusPlugin />
+        <OnChangePlugin onChange={onChange} />
 
-      {/* Text formatting and structure */}
-      <LinkPlugin />
-      <ListPlugin />
-      <CheckListPlugin />
-      <TabIndentationPlugin />
+        {/* Text formatting and structure */}
+        <LinkPlugin />
+        <ListPlugin />
+        <CheckListPlugin />
+        <TabIndentationPlugin />
 
-      {/* Auto-features */}
-      <AutoLinkPlugin matchers={MATCHERS} />
-      <MarkdownShortcutPlugin />
-    </LexicalComposer>
+        {/* Auto-features */}
+        <AutoLinkPlugin matchers={MATCHERS} />
+        <MarkdownShortcutPlugin />
+      </LexicalComposer>
+    </div>
   );
 }
