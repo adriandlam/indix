@@ -10,14 +10,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const auth = betterAuth({
   appName: "indix",
   user: {
-    additionalFields: {
-      encryptionSalt: {
-        type: "string",
-        required: false,
-        defaultValue: "",
-        returned: true,
-      },
-    },
+    // additionalFields: {
+    //   encryptionSalt: {
+    //     type: "string",
+    //     required: false,
+    //     defaultValue: "",
+    //     returned: true,
+    //   },
+    // },
   },
   database: prismaAdapter(prisma, {
     provider: "postgresql",

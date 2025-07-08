@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Switch } from "@indix/ui/components/switch";
 import { Button } from "@indix/ui/components/button";
 import {
-  Database,
   Keyboard,
   Lock,
   MousePointer2,
@@ -18,7 +17,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@indix/ui/lib/utils";
-import { Input } from "@indix/ui/components/input";
 import { useHotkeys } from "react-hotkeys-hook";
 
 export default function SettingsModal() {
@@ -191,7 +189,7 @@ export default function SettingsModal() {
                     </div>
                   </div>
                 </div>
-                <div className="w-3/4 px-10 pb-10 pt-9 overflow-y-auto">
+                <div className="w-3/4 px-10 pb-10 pt-9 overflow-y-auto bg-background">
                   {activeTab === "profile" && (
                     <div className="space-y-6">
                       <h2 className="text-2xl font-medium tracking-tight">
@@ -303,6 +301,17 @@ export default function SettingsModal() {
                           </div>
                           <Button variant="outline" size="sm">
                             add slider here
+                          </Button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-0.5">
+                            <div className="text-sm font-medium">Theme</div>
+                            <div className="text-xs text-muted-foreground">
+                              Change the theme of your notes
+                            </div>
+                          </div>
+                          <Button variant="outline" size="sm">
+                            select theme here
                           </Button>
                         </div>
                       </div>

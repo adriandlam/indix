@@ -2,7 +2,7 @@
 
 import { Link } from "@/components/link";
 import useEncryptionStore from "@/stores/encryption-store";
-import { signIn, signUp } from "@/lib/auth-client";
+import { signIn, signUp, useSession } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@indix/ui/components/button";
 import {
@@ -42,6 +42,8 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  const session = useSession();
+
   const { setPassword } = useEncryptionStore();
 
   const router = useRouter();
@@ -57,6 +59,7 @@ export default function SignUpPage() {
 
   async function onSubmit(data: FormValues) {
     const cleanedEmail = data.email.toLowerCase();
+    // somehow implement zk encryption here
     await signUp.email(
       {
         name: "",
